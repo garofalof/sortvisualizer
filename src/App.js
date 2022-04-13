@@ -6,7 +6,6 @@ const App = () => {
   const [active, setActive] = useState([]);
   const [display, setDisplay] = useState([]);
   const [delay, setDelay] = useState(10);
-  const [slider, setSlider] = useState(10);
 
   const timer = (delay) => {
     return new Promise((resolve) => setTimeout(resolve, delay));
@@ -164,7 +163,6 @@ const App = () => {
   }
 
   const handleChange = (e) => {
-    setSlider(e.target.value);
     setDelay(e.target.value);
   }
 
@@ -177,7 +175,7 @@ const App = () => {
       }
     });
     setDisplay(render);
-  }, [nums, active, slider]);
+  }, [nums, active, delay]);
 
   return (
     <div style={{height: '770px'}} className="app">
@@ -188,8 +186,8 @@ const App = () => {
         </div>
         <div className="slide-container">
           <span style={{paddingBottom: '10px', fontWeight: '400'}}>Animation Speed</span>
-          <input onChange={handleChange} type="range" min="1" max="250" value={slider} className="slider" id="myRange"></input>
-          <span style={{paddingTop: '10px'}}>{slider + 'ms'}</span>
+          <input onChange={handleChange} type="range" min="1" max="250" value={delay} className="slider" id="myRange"></input>
+          <span style={{paddingTop: '10px'}}>{delay + 'ms'}</span>
         </div>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '15px'}}>
           <button className="button-sort" onClick={insertionSort}>Insertion Sort</button>
