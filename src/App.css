@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:wght@400;500;700;900&display=swap');
+
+.app {
+  background-color: rgb(29, 60, 122);
+}
+
+.bar {
+  border: 2.5px outset rgb(136, 136, 224);
+  box-shadow: 2.5px 2.5px 2.5px rgb(13, 255, 0);
+  border-radius: 2.5px;
+  margin: 0% 0.0675%;
+  transition: all 0.125s ease-out 0s;
+}
+
+.bar:hover {
+  background-color: rgb(13, 255, 0);
+  cursor: pointer;
+  border: 2.5px outset rgb(26, 26, 194);
+  box-shadow: 2.5px 2.5px 2.5px rgba(124, 178, 243, 0.96);
+  transform: scale(1.1);
+}
+
+.bar-active {
+  background-color: rgb(13, 255, 0);
+  border: 2.5px outset rgb(26, 26, 194);
+  border-radius: 2.5px;
+  box-shadow: 2.5px 2.5px 2.5px rgba(124, 178, 243, 0.96);
+  transform: scale(1.15);
+}
+
+.slide-container {
+  width: 25%;
+  font-family: 'Lato';
+  font-weight: 300;
+  letter-spacing: 1.25px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #1756ba;
+  outline: none;
+  opacity: 0.7;
+  box-shadow: 2.5px 2.5px 2.5px rgb(137, 134, 134);
+  -webkit-transition: 0.25s ease-out 0s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(124, 178, 243, 0.96);
+  cursor: pointer;
+  box-shadow: 0px 2.5px 2.5px rgb(137, 134, 134);
+  transition: all 0.25s ease-out 0.0s;
+  border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background-color: rgb(13, 255, 0);
+  border: 2.5px outset rgb(26, 26, 194);
+  box-shadow: 0px 2.5px 5px rgb(26, 26, 194);
+  transform: scale(1.25);
+}
+
+.button {
+  background: rgba(124, 178, 243, 0.96);
+  cursor: pointer;
+  box-shadow: 0px 2.5px 2.5px rgb(137, 134, 134);
+  transition: all 0.25s ease-out 0.0s;
+  font-family: 'Lato';
+  font-weight: 900;
+  font-size: 17.5px;
+  padding: 7.5px;
+  border-radius: 4px;
+  width: 100px;
+  height: 50px;
+  margin: 0px 20px;
+}
+
+.button:hover {
+  background-color: rgb(13, 255, 0);
+  box-shadow: 0px 2.5px 5px rgb(26, 26, 194);
+}
+
+.button-sort {
+  background-color: rgba(124, 178, 243, 0.96);
+  box-shadow: 0px 2.5px 7.5px rgba(44, 44, 44, 0.747);
+  font-family: 'Lato';
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.25s ease-out 0.0s;
+  padding: 7.5px;
+  border-radius: 4px;
+  margin: 0px 5px;
+}
+
+.button-sort:hover {
+  background-color: rgba(12, 12, 107, 0.807);
+  color: white;
+  box-shadow: 0px 2.5px 5px rgb(137, 134, 134);
+}
