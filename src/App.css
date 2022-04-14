@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:wght@400;500;700;900&display=swap');
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .app {
   background-color: rgb(29, 60, 122);
 }
@@ -7,7 +12,7 @@
 .bar {
   border: 2.5px outset rgb(136, 136, 224);
   box-shadow: 2.5px 2.5px 2.5px rgb(13, 255, 0);
-  border-radius: 2.5px;
+  border-radius: 7.5px;
   margin: 0% 0.0675%;
   transition: all 0.125s ease-out 0s;
 }
@@ -23,7 +28,7 @@
 .bar-active {
   background-color: rgb(13, 255, 0);
   border: 2.5px outset rgb(26, 26, 194);
-  border-radius: 2.5px;
+  border-radius: 7.5px;
   box-shadow: 2.5px 2.5px 2.5px rgba(124, 178, 243, 0.96);
   transform: scale(1.15);
 }

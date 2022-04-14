@@ -89,10 +89,10 @@ const App = () => {
       setActive([min]);
       await timer(delay);
       for (let j = i + 1; j < numsArr.length; j++) {
+        setActive([i, j]);
+        await timer(delay);
         if (numsArr[j] < numsArr[min]) {
           min = j;
-          setActive([min]);
-          await timer(delay);
         }
       }
       if (min !== i) {
