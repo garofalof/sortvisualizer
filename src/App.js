@@ -7,6 +7,7 @@ const App = () => {
   const [display, setDisplay] = useState([]);
   const [delay, setDelay] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [length, setLength] = useState(75);
 
   const timer = (delay) => {
     return new Promise((resolve) => setTimeout(resolve, delay));
@@ -17,10 +18,12 @@ const App = () => {
       setNums([]);
       setLoading(true);
       await timer(delay);
-      for (let i = 1; i <= 75; i++) {
+      for (let i = 1; i <= length; i++) {
+        setActive([i - 1]);
         setNums((prev) => prev.concat(i));
         await timer(delay);
       }
+      setActive([]);
       setLoading(false);
       await timer(delay);
     }
@@ -197,19 +200,24 @@ const App = () => {
   }
 
   const handleChange = (e) => {
-    setDelay(e.target.value);
+    if (e.target.id === 'animationLength') {
+      setLength(e.target.value);
+    }
+    if (e.target.id === 'animationSpeed') {
+      setDelay(e.target.value);
+    }
   }
 
   useEffect(() => {
     let render = nums.map((num, index) => {
       if (index === active[0] || index === active[1]) {
-        return <div className='bar-active' style={{height: `${num / 1}%`, width: `${80 / nums.length}%`}}></div>;
+        return <div className='bar-active' style={{height: `${num * 80 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
       } else {
-        return <div className='bar' style={{height: `${num / 1}%`, width: `${80 / nums.length}%`}}></div>;
+        return <div className='bar' style={{height: `${num * 80 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
       }
     });
     setDisplay(render);
-  }, [nums, active, delay]);
+  }, [nums, active]);
 
   return (
     <div style={{height: '770px'}} className="app">
@@ -220,8 +228,13 @@ const App = () => {
         </div>
         <div className="slide-container">
           <span style={{paddingBottom: '10px', fontWeight: '400'}}>Animation Speed</span>
-          <input onChange={handleChange} type="range" min="1" max="250" value={delay} className="slider" id="myRange"></input>
+          <input onChange={handleChange} type="range" min="0" max="250" value={delay} className="slider" id="animationSpeed"></input>
           <span style={{paddingTop: '10px'}}>{delay + 'ms'}</span>
+        </div>
+        <div className="slide-container">
+          <span style={{paddingBottom: '10px', fontWeight: '400'}}>List Length</span>
+          <input onChange={handleChange} type="range" min="0" max="150" value={length} className="slider" id="animationLength"></input>
+          <span style={{paddingTop: '10px'}}>{length}</span>
         </div>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '15px'}}>
           <button className="button-sort" onClick={insertionSort}>Insertion Sort</button>
