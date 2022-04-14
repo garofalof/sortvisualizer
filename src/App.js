@@ -6,160 +6,194 @@ const App = () => {
   const [active, setActive] = useState([]);
   const [display, setDisplay] = useState([]);
   const [delay, setDelay] = useState(10);
+  const [loading, setLoading] = useState(false);
 
   const timer = (delay) => {
     return new Promise((resolve) => setTimeout(resolve, delay));
   }
 
   const initialize = async () => {
-    setNums([]);
-    for (let i = 1; i <= 75; i++) {
-      setNums((prev) => prev.concat(i));
+    if (!loading) {
+      setNums([]);
+      setLoading(true);
+      await timer(delay);
+      for (let i = 1; i <= 75; i++) {
+        setNums((prev) => prev.concat(i));
+        await timer(delay);
+      }
+      setLoading(false);
       await timer(delay);
     }
   };
 
   const shuffle = async() => {
-    for (let i = 0; i < nums.length; i++) {
-      let rand = Math.floor(Math.random() * nums.length);
-      setActive([i, rand]);
-      setNums((arr) => {
-        let temp  = [...arr];
-        [temp[i], temp[rand]] = [temp[rand], temp[i]];
-        return temp;
-      });
+    if (!loading) {
+      setLoading(true);
       await timer(delay);
+      for (let i = 0; i < nums.length; i++) {
+        let rand = Math.floor(Math.random() * nums.length);
+        setActive([i, rand]);
+        setNums((arr) => {
+          let temp  = [...arr];
+          [temp[i], temp[rand]] = [temp[rand], temp[i]];
+          return temp;
+        });
+        await timer(delay);
+      }
+      setLoading(false);
+      setActive([]);
     }
-    setActive([]);
   }
 
   const insertionSort = async() => {
-    let numsArr = [...nums];
-    for (let i = 1; i < numsArr.length; i++) {
-      let j = i - 1;
-      let temp = numsArr[i];
-      while (j >= 0 && numsArr[j] > temp) {
-        setActive([j, j + 1]);
-        setNums((arr) => {
-          let prev = [...arr];
-          prev[j + 1] = prev[j];
-          return prev;
-        });
-        await timer(delay);
-        numsArr[j + 1] = numsArr[j];
-        j--;
-      }
-      setActive([j + 1, i]);
-      setNums((arr) => {
-        let prev = [...arr];
-        prev[j + 1] = temp;
-        return prev;
-      });
+    if (!loading) {
+      let numsArr = [...nums];
+      setLoading(true);
       await timer(delay);
-      numsArr[j + 1] = temp;
-    }
-    setActive([]);
-  }
-
-  const bubbleSort = async() => {
-    let numsArr = [...nums];
-    let len = numsArr.length;
-    for (let i = 0; i < len; i++) {
-      for (let j = 0; j < len; j++) {
-        if (numsArr[j] > numsArr[j + 1]) {
+      for (let i = 1; i < numsArr.length; i++) {
+        let j = i - 1;
+        let temp = numsArr[i];
+        while (j >= 0 && numsArr[j] > temp) {
           setActive([j, j + 1]);
           setNums((arr) => {
             let prev = [...arr];
-            [prev[j], prev[j + 1]] = [prev[j + 1], prev[j]];
+            prev[j + 1] = prev[j];
             return prev;
           });
           await timer(delay);
-          [numsArr[j], numsArr[j + 1]] = [numsArr[j + 1], numsArr[j]];
+          numsArr[j + 1] = numsArr[j];
+          j--;
         }
-      }
-    }
-    setActive([]);
-  }
-
-  const selectionSort = async() => {
-    let min;
-    let numsArr = [...nums];
-    for (let i = 0; i < numsArr.length; i++) {
-      min = i;
-      setActive([min]);
-      await timer(delay);
-      for (let j = i + 1; j < numsArr.length; j++) {
-        setActive([i, j]);
-        await timer(delay);
-        if (numsArr[j] < numsArr[min]) {
-          min = j;
-        }
-      }
-      if (min !== i) {
-        setActive([i, min]);
+        setActive([j + 1, i]);
         setNums((arr) => {
           let prev = [...arr];
-          [prev[i], prev[min]] = [prev[min], prev[i]];
+          prev[j + 1] = temp;
           return prev;
         });
         await timer(delay);
-        [numsArr[i], numsArr[min]] = [numsArr[min], numsArr[i]];
+        numsArr[j + 1] = temp;
       }
+      setLoading(false);
+      setActive([]);
     }
-    setActive([]);
   }
 
-  const quickSort = () => {
-    async function partition(arr, start, end) {
-      let pivotVal = arr[end];
-      let pivotIndex = start;
-      for (let i = start; i < end; i++) {
-        if (arr[i] < pivotVal) {
-          setActive([i, pivotIndex]);
+  const bubbleSort = async() => {
+    if (!loading) {
+      let numsArr = [...nums];
+      let len = numsArr.length;
+      setLoading(true);
+      await timer(delay);
+      for (let i = 0; i < len; i++) {
+        for (let j = 0; j < len; j++) {
+          if (numsArr[j] > numsArr[j + 1]) {
+            setActive([j, j + 1]);
+            setNums((arr) => {
+              let prev = [...arr];
+              [prev[j], prev[j + 1]] = [prev[j + 1], prev[j]];
+              return prev;
+            });
+            await timer(delay);
+            [numsArr[j], numsArr[j + 1]] = [numsArr[j + 1], numsArr[j]];
+          }
+        }
+      }
+      setLoading(false);
+      setActive([]);
+    }
+  }
+
+  const selectionSort = async() => {
+    if (!loading) {
+      let min;
+      let numsArr = [...nums];
+      setLoading(true);
+      await timer(delay);
+      for (let i = 0; i < numsArr.length; i++) {
+        min = i;
+        for (let j = i + 1; j < numsArr.length; j++) {
+          setActive([i, j]);
+          await timer(delay);
+          if (numsArr[j] < numsArr[min]) {
+            min = j;
+          }
+        }
+        if (min !== i) {
+          setActive([i, min]);
           setNums((arr) => {
             let prev = [...arr];
-            [prev[i], prev[pivotIndex]] = [prev[pivotIndex], prev[i]];
+            [prev[i], prev[min]] = [prev[min], prev[i]];
             return prev;
           });
           await timer(delay);
-          [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
-          pivotIndex++;
+          [numsArr[i], numsArr[min]] = [numsArr[min], numsArr[i]];
         }
       }
-      setActive([pivotIndex, end]);
-      setNums((arr) => {
-        let prev = [...arr];
-        [prev[pivotIndex], prev[end]] = [prev[end], prev[pivotIndex]];
-        return prev;
-      });
-      await timer(delay);
-      [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]];
-      return pivotIndex;
+      setLoading(false);
+      setActive([]);
     }
+  }
 
-    async function sort(arr) {
-      let stack = [];
-      stack.push(0);
-      stack.push(arr.length - 1);
-
-      while (stack[stack.length - 1] >= 0) {
-        let end = stack.pop();
-        let start = stack.pop();
-        let pivotIndex = await partition(arr, start, end);
-        setActive([]);
+  const quickSort = () => {
+    if (!loading) {
+      async function partition(arr, start, end) {
+        let pivotVal = arr[end];
+        let pivotIndex = start;
+        setActive([pivotIndex, pivotVal]);
         await timer(delay);
-        if (pivotIndex - 1 > start) {
-          stack.push(start);
-          stack.push(pivotIndex - 1);
+        for (let i = start; i < end; i++) {
+          setActive([i]);
+          await timer(delay);
+          if (arr[i] < pivotVal) {
+            setActive([i, pivotIndex]);
+            setNums((arr) => {
+              let prev = [...arr];
+              [prev[i], prev[pivotIndex]] = [prev[pivotIndex], prev[i]];
+              return prev;
+            });
+            await timer(delay);
+            [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+            pivotIndex++;
+          }
         }
-        if (pivotIndex + 1 < end) {
-          stack.push(pivotIndex + 1);
-          stack.push(end);
-        }
+        setActive([pivotIndex, end]);
+        setNums((arr) => {
+          let prev = [...arr];
+          [prev[pivotIndex], prev[end]] = [prev[end], prev[pivotIndex]];
+          return prev;
+        });
+        await timer(delay);
+        [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]];
+        return pivotIndex;
       }
+
+      async function sort(arr) {
+        let stack = [];
+        stack.push(0);
+        stack.push(arr.length - 1);
+        setLoading(true);
+        await timer(delay);
+
+        while (stack[stack.length - 1] >= 0) {
+          let end = stack.pop();
+          let start = stack.pop();
+          let pivotIndex = await partition(arr, start, end);
+          setActive([]);
+          await timer(delay);
+          if (pivotIndex - 1 > start) {
+            stack.push(start);
+            stack.push(pivotIndex - 1);
+          }
+          if (pivotIndex + 1 < end) {
+            stack.push(pivotIndex + 1);
+            stack.push(end);
+          }
+        }
+        setLoading(false);
+      }
+      let temp = [...nums];
+      sort(temp);
     }
-    let temp = [...nums];
-    sort(temp);
   }
 
   const handleChange = (e) => {
