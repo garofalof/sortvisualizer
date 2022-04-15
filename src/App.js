@@ -7,7 +7,7 @@ const App = () => {
   const [display, setDisplay] = useState([]);
   const [delay, setDelay] = useState(10);
   const [loading, setLoading] = useState(false);
-  const [length, setLength] = useState(75);
+  const [length, setLength] = useState(50);
 
   const timer = (delay) => {
     return new Promise((resolve) => setTimeout(resolve, delay));
@@ -15,8 +15,8 @@ const App = () => {
 
   const initialize = async () => {
     if (!loading) {
-      setNums([]);
       setLoading(true);
+      setNums([]);
       await timer(delay);
       for (let i = 1; i <= length; i++) {
         setActive([i - 1]);
@@ -45,6 +45,7 @@ const App = () => {
       }
       setLoading(false);
       setActive([]);
+      await timer(delay);
     }
   }
 
@@ -78,6 +79,7 @@ const App = () => {
       }
       setLoading(false);
       setActive([]);
+      await timer(delay);
     }
   }
 
@@ -103,6 +105,7 @@ const App = () => {
       }
       setLoading(false);
       setActive([]);
+      await timer(delay);
     }
   }
 
@@ -134,6 +137,7 @@ const App = () => {
       }
       setLoading(false);
       setActive([]);
+      await timer(delay);
     }
   }
 
@@ -193,6 +197,7 @@ const App = () => {
           }
         }
         setLoading(false);
+        await timer(delay);
       }
       let temp = [...nums];
       sort(temp);
@@ -211,42 +216,42 @@ const App = () => {
   useEffect(() => {
     let render = nums.map((num, index) => {
       if (index === active[0] || index === active[1]) {
-        return <div className='bar-active' style={{height: `${num * 80 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
+        return <div className='bar-active' style={{height: `${num * 75 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
       } else {
-        return <div className='bar' style={{height: `${num * 80 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
+        return <div className='bar' style={{height: `${num * 75 / nums.length}%`, width: `${80 / nums.length}%`}}></div>;
       }
     });
     setDisplay(render);
   }, [nums, active]);
 
   return (
-    <div style={{height: '770px'}} className="app">
-      <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', paddingTop: '20px', backgroundImage: 'linear-gradient(180deg, black, #1C1352, rgb(29, 60, 122))', height: '125px'}}>
+    <div style={{height: '100vh'}} className="app">
+      <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', paddingTop: '20px', backgroundImage: 'linear-gradient(180deg, black, #1C1352, rgb(29, 60, 122))', height: '15%'}}>
         <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end', paddingTop: '5px'}}>
           <button className="button" onClick={initialize}>Initialize</button>
           <button className="button" onClick={shuffle}>Shuffle</button>
         </div>
         <div className="slide-container">
-          <span style={{paddingBottom: '10px', fontWeight: '400'}}>Animation Speed</span>
+          <span style={{paddingBottom: '12.5px'}}>{delay + 'ms'}</span>
           <input onChange={handleChange} type="range" min="0" max="250" value={delay} className="slider" id="animationSpeed"></input>
-          <span style={{paddingTop: '10px'}}>{delay + 'ms'}</span>
+          <span style={{paddingTop: '12.5px', fontWeight: '400'}}>Animation Speed</span>
         </div>
         <div className="slide-container">
-          <span style={{paddingBottom: '10px', fontWeight: '400'}}>List Length</span>
-          <input onChange={handleChange} type="range" min="0" max="150" value={length} className="slider" id="animationLength"></input>
-          <span style={{paddingTop: '10px'}}>{length}</span>
+          <span style={{paddingBottom: '12.5px'}}>{length}</span>
+          <input onChange={handleChange} type="range" min="0" max="100" value={length} className="slider" id="animationLength"></input>
+          <span style={{paddingTop: '12.5px', fontWeight: '400'}}>List Length</span>
         </div>
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '15px'}}>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '22.5px'}}>
           <button className="button-sort" onClick={insertionSort}>Insertion Sort</button>
           <button className="button-sort" onClick={selectionSort}>Selection Sort</button>
           <button className="button-sort" onClick={quickSort}>Quick Sort</button>
           <button className="button-sort" onClick={bubbleSort}>Bubble Sort</button>
         </div>
       </div>
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '0px', paddingRight: '50px', paddingLeft: '50px', height: '80%'}}>
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '0px', paddingRight: '50px', paddingLeft: '50px', height: '70%'}}>
         { display }
       </div>
-      <div style={{width: '100%', height: '100%', backgroundImage: 'linear-gradient(180deg, #1C1352, black', maxHeight: '185px'}}></div>
+      <div style={{width: '100%', height: '15%', backgroundImage: 'linear-gradient(180deg, #1C1352, black'}}></div>
     </div>
   );
 }
